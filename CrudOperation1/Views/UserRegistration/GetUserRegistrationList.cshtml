@@ -1,0 +1,140 @@
+﻿@model IEnumerable<CrudOperation1.Models.TblUserRegistration>
+
+@{
+    ViewData["Title"] = "GetUserRegistrationList";
+}
+
+<h1>GetUserRegistrationList</h1>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/registration.js"></script>
+<p>
+    @*<a asp-action="Create">Create New</a>*@
+    <!-- Button trigger modal -->
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Create
+    </button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                    <button type="button" class="btn btn-primary" onclick="getById(@item.Id)">Edit</button>
+                    <button type="button" class="btn btn-primary" onclick="Delete(@item.Id)">Delete</button>
+
+                @*@Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |*@
+                @*@Html.ActionLink("Details", "Details", new {  id=item.Id  }) |*@
+                @*@Html.ActionLink("Delete", "Delete", new {  id=item.Id  })*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+@* Modal popup *@
+
+
+<!-- Modal Add -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div class="mb-3">
+                        
+                        <input type="hidden" class="form-control" id="Id" aria-describedby="NameHepl">
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label for="Name" class="form-label">Enter the Full Name</label>
+                        <input type="text" class="form-control" id="Name" aria-describedby="NameHepl">
+                        <div id="NameHepl" class="form-text"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Email1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Phone" class="form-label">Enter the Phone No</label>
+                        <input type="number" class="form-control" id="Phone" aria-describedby="PhoneHepl">
+                        <div id="PhoneHepl" class="form-text"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Address" class="form-label">Enter Address</label>
+                        <textarea type="text" class="form-control" id="Address" ></textarea>
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label for="Address" class="form-label">Select State</label>
+                        <select name="State" class="form-control" id="statedropdownList">
+                            
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Address" class="form-label">Select City</label>
+                        <select name="City" class="form-control" id="citydropdownList">
+                           
+                        </select>
+                    </div>
+
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                   
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="myRegistrationFormBtn" @*onclick="return myRegistrationFormBtn()" *@class="btn btn-primary">Save</button>
+
+                <button type="button" id="myUpdateFormBtn" style="display:none;" @*onclick="return myRegistrationFormBtn()" *@class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
